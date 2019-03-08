@@ -45,6 +45,7 @@ public class Pieces extends Board{
                 if(me.getButton() == MouseEvent.BUTTON3){
                     if(me.getClickCount() == 1){
                         confirmDeletelabel.setText("You sure you want to delete this? Double Right Click again to proceed.");
+                        piece.setBorder(BorderFactory.createLineBorder(Color.red, 5));
                     }
                     else if(me.getClickCount() == 2){
                         confirmDeletelabel.setText("");
