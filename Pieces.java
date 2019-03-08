@@ -14,6 +14,7 @@ public class Pieces extends Board{
 
     void addPiece(int x, int y, int z, String colour){
         JButton piece = new JButton();
+        piece.setRolloverEnabled(false);
         if (colour == "red"){
             piece.setIcon(red);
         }
@@ -29,6 +30,20 @@ public class Pieces extends Board{
             public void mouseExited(MouseEvent me){}
             public void mouseClicked(MouseEvent me){
                 if(me.getButton() == MouseEvent.BUTTON1){
+                    if (me.getClickCount() == 1){
+                        confirmDeletelabel.setText("Are you sure you want to move this piece? Double Left Click again to proceed.");
+                        deleteConfirm.add(cancelButton);
+                        cancelButton.addActionListener(new ActionListener(){
+                            public void actionPerformed(ActionEvent e){
+                                piece.setBorderPainted(false);
+                                confirmDeletelabel.setText("");
+                                deleteConfirm.remove(cancelButton);
+                                deleteConfirm.repaint();
+                                piece.setRolloverEnabled(true);
+                            }
+                         });
+                    }
+                    if(me.getClickCount() == 2){
                     x_pos = piece.getLocation().x;
                     y_pos = piece.getLocation().y;
                     boardPane.remove(piece);
@@ -42,6 +57,11 @@ public class Pieces extends Board{
                     placeHolder.setBounds(x_pos, y_pos, z, z);
                     confirmDeletelabel.setText("");
                     pieceAction(x, y, z, colour);
+                    deleteConfirm.remove(cancelButton);
+                    deleteConfirm.repaint();
+                    boardPane.remove(piece);
+                    boardPane.repaint();
+                    }
                 }
                 if(me.getButton() == MouseEvent.BUTTON3){
                     if(me.getClickCount() == 1){
@@ -55,7 +75,6 @@ public class Pieces extends Board{
                                confirmDeletelabel.setText("");
                                deleteConfirm.remove(cancelButton);
                                deleteConfirm.repaint();
-                               piece.setRolloverEnabled(true);
                                boardPane.repaint();
                                boardPane.remove(piece);
                                Pieces piece = new Pieces();

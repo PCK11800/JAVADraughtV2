@@ -61,7 +61,7 @@ public class Board{
     }
 
     public static void main(String[] args){
-        draught.frameSetup(655, 700);
+        draught.frameSetup(655, 720);
         draught.boardSetup(640);
         draught.createBoard(80);
         piece.iniRed(80);

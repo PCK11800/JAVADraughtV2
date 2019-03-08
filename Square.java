@@ -16,6 +16,7 @@ public class Square extends Board{
             square.setIcon(black);
         }
         square.setBounds(x, y, z, z);
+        square.setRolloverEnabled(false);
         boardPane.add(square, new Integer(1));
     }
 
