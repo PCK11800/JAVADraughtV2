@@ -55,14 +55,20 @@ public class Pieces extends Board{
                                confirmDeletelabel.setText("");
                                deleteConfirm.remove(cancelButton);
                                deleteConfirm.repaint();
-                           } 
+                               piece.setRolloverEnabled(true);
+                               boardPane.repaint();
+                               boardPane.remove(piece);
+                               Pieces piece = new Pieces();
+                               piece.addPiece(x, y, z, colour);
+                           }
                         });
-                    }
+                    }  
                     else if(me.getClickCount() == 2){
                         confirmDeletelabel.setText("");
                         deleteConfirm.remove(cancelButton);
                         deleteConfirm.repaint();
                         boardPane.remove(piece);
+                        boardPane.repaint();
                     }
                 }
             }
