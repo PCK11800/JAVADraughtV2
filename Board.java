@@ -9,6 +9,8 @@ public class Board{
     static Board draught = new Board();
     static Square square = new Square();
     static Pieces piece = new Pieces();
+    static JPanel deleteConfirm = new JPanel();
+    static JLabel confirmDeletelabel = new JLabel();
     int x_pos, y_pos;
 
 
@@ -18,11 +20,15 @@ public class Board{
         mainFrame.setLayout(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.add(boardPane);
+        mainFrame.add(deleteConfirm);
     }
 
     void boardSetup(int boardSize){
         boardPane.setBounds(0, 0, boardSize, boardSize);
         boardPane.setOpaque(false);
+        deleteConfirm.setBounds(10, boardSize, boardSize, 100);
+        deleteConfirm.setOpaque(false);
+        deleteConfirm.add(confirmDeletelabel);
     }
 
     void createBoard(int sizeLength){
@@ -55,7 +61,7 @@ public class Board{
     }
 
     public static void main(String[] args){
-        draught.frameSetup(655, 680);
+        draught.frameSetup(655, 690);
         draught.boardSetup(640);
         draught.createBoard(80);
         piece.iniRed(80);

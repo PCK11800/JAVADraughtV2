@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class Pieces extends Board{
     int x_pos, y_pos;
@@ -9,6 +8,7 @@ public class Pieces extends Board{
     ImageIcon white = new ImageIcon("white.png");
     JButton placeHolder = new JButton();
     ImageIcon yellow = new ImageIcon("selected.png");
+    int clickCount = 0;
 
 
     void addPiece(int x, int y, int z, String colour){
@@ -21,22 +21,38 @@ public class Pieces extends Board{
         }
         piece.setBounds(x, y, z, z);
         boardPane.add(piece, new Integer(3));
-        piece.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                x_pos = piece.getLocation().x;
-                y_pos = piece.getLocation().y;
-                boardPane.remove(piece);
-                boardPane.add(placeHolder, new Integer(3));
-                if (colour == "red"){
-                    placeHolder.setIcon(red);
+        piece.addMouseListener(new MouseListener(){
+            public void mousePressed(MouseEvent me){}
+            public void mouseReleased(MouseEvent me){}
+            public void mouseEntered(MouseEvent me){}
+            public void mouseExited(MouseEvent me){}
+            public void mouseClicked(MouseEvent me){
+                if(me.getButton() == MouseEvent.BUTTON1){
+                    x_pos = piece.getLocation().x;
+                    y_pos = piece.getLocation().y;
+                    boardPane.remove(piece);
+                    boardPane.add(placeHolder, new Integer(3));
+                    if (colour == "red"){
+                        placeHolder.setIcon(red);
+                    }
+                    else if (colour == "white"){
+                        placeHolder.setIcon(white);
+                    }
+                    placeHolder.setBounds(x_pos, y_pos, z, z);
+                    confirmDeletelabel.setText("");
+                    pieceAction(x, y, z, colour);
                 }
-                else if (colour == "white"){
-                    placeHolder.setIcon(white);
+                if(me.getButton() == MouseEvent.BUTTON3){
+                    if(me.getClickCount() == 1){
+                        confirmDeletelabel.setText("You sure you want to delete this? Double Right Click again to proceed.");
+                    }
+                    else if(me.getClickCount() == 2){
+                        confirmDeletelabel.setText("");
+                        boardPane.remove(piece);
+                    }
                 }
-                placeHolder.setBounds(x_pos, y_pos, z, z);
-                pieceAction(x, y, z, colour);
             }
-        });
+        });    
     }
 
     void pieceAction(int x, int y, int z, String colour){
